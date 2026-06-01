@@ -55,8 +55,13 @@ function addToCart(product) {
     const userId = localStorage.getItem("userId");
 
     if (!userId || userId === "null") {
-        showToast("Please login first", "warning");
-        window.location.href = "/login";
+
+        showToast("Please login first", "success");
+
+        setTimeout(() => {
+            window.location.href = "/login";
+        }, 1000);
+
         return;
     }
 
@@ -73,9 +78,18 @@ function addToCart(product) {
     })
     .then(res => res.json())
     .then(() => {
-        showToast(product.name + " added to cart!");
+
+        // ✅ success toast
+        showToast(product.name + " added to cart!", "success");
+
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+
+        console.log(err);
+
+        // ❌ error toast
+        showToast("Failed to add item", "error");
+    });
 }
 
 

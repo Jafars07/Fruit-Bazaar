@@ -3,8 +3,7 @@ document.getElementById("registerForm").addEventListener("submit", function(e) {
 
     const user = {
         username: document.getElementById("username").value,
-        password: document.getElementById("password").value,
-        role: document.getElementById("role").value
+        password: document.getElementById("password").value
     };
 
     fetch("/api/auth/register", {
@@ -14,16 +13,37 @@ document.getElementById("registerForm").addEventListener("submit", function(e) {
         },
         body: JSON.stringify(user)
     })
-    .then(res => res.json())
+    .then(res => {
+        if (!res.ok) {
+            throw new Error("User already exists");
+        }
+        return res.text();
+    })
     .then(data => {
+
+        // ✅ success toast stays
         showToast("Registered successfully! Please login", "success");
+
         console.log(data);
+
+        // optional redirect after 2 sec
+        setTimeout(() => {
+            window.location.href = "/login";
+        }, 2000);
+
     })
     .catch(() => {
-        showToast("Registration failed User Exists With This ID", "error");
+
+        showToast(
+            "Registration failed - User Exists With This ID",
+            "error"
+        );
+
     });
 });
-//Pasword eye
+
+
+// Password eye
 function togglePassword(id) {
 
     const input = document.getElementById(id);

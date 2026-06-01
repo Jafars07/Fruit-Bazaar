@@ -57,11 +57,25 @@ function renderProducts(products) {
 
             <td>${p.unit}</td>
 
-            <td>
-                ${p.available
-                    ? `<span class="badge bg-success">Available</span>`
-                    : `<span class="badge bg-danger">Out Of Stock</span>`}
-            </td>
+			<td>
+
+			    ${p.available
+			        ? `<span class="badge bg-success">
+			              Available
+			           </span>`
+			        : `<span class="badge bg-danger">
+			              Out Of Stock
+			           </span>`
+			    }
+
+			    ${p.featured
+			        ? `<span class="badge bg-warning ms-1">
+			              Featured
+			           </span>`
+			        : ""
+			    }
+
+			</td>
 
             <td>
 
@@ -153,6 +167,11 @@ document.getElementById("productForm")
         "available",
         document.getElementById("available").checked
     );
+	
+	formData.append(
+	    "featured",
+	    document.getElementById("featured").checked
+	);
 
     const imageFile =
         document.getElementById("imageFile").files[0];
@@ -256,6 +275,9 @@ function editProduct(id) {
 
             document.getElementById("available").checked =
                 p.available;
+				
+			document.getElementById("featured").checked =
+			 p.featured;
 
             previewImage.src = p.imageUrl;
 

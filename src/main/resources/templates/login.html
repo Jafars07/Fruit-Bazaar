@@ -13,11 +13,17 @@
 </head>
 
 <body>
-
+<div class="video-bg">
+    <video autoplay muted loop playsinline>
+        <source src="/images/video.mp4" type="video/mp4">
+    </video>
+</div>
 <!-- 🔹 NAVBAR -->
 <nav class="navbar navbar-dark bg-success">
     <div class="container">
-        <a class="navbar-brand" href="/">🍎 Fruit Stall</a>
+        <a class="navbar-brand logo" href="/">
+  🥥 <span class="logo-f">F</span>ruit Bazaar 🍓
+</a>
     </div>
 </nav>
 
@@ -31,12 +37,12 @@
         <form id="loginForm">
 
             <div class="mb-3">
-                <label class="form-label">Username</label>
+                <label class="form-label"></label>
                 <input type="text" id="username" class="form-control" placeholder="Enter username" required>
             </div>
             
 <div class="mb-3">
-    <label class="form-label">Password</label>
+    <label class="form-label"></label>
 
     <div class="input-group">
         <input type="password" id="password" class="form-control" placeholder="Enter password" required>
@@ -52,7 +58,7 @@
 
         </form>
 
-        <p class="text-center mt-3">
+        <p class="text-center mt-3" style="color:white">
             Don't have an account?
             <a href="/register">Register</a>
         </p>

@@ -23,23 +23,29 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User user) {
 
-        User dbUser = repo.findByUsernameAndPassword(
-            user.getUsername(),
-            user.getPassword()
-        );
+        User dbUser = repo.findByUsername(user.getUsername());
 
-        if (dbUser == null) {
+        if (dbUser == null || !dbUser.getPassword().equals(user.getPassword())) {
             return ResponseEntity.badRequest().body("Invalid login");
         }
 
-        return ResponseEntity.ok(dbUser); // MUST include id
+        return ResponseEntity.ok(dbUser);
     }
     
     
-    //For Register Page
     @PostMapping("/register")
-    public User register(@RequestBody User user) {
-        return repo.save(user);
+    public ResponseEntity<?> register(@RequestBody User user) {
+
+        if (repo.findByUsername(user.getUsername()) != null) {
+            return ResponseEntity.badRequest().body("User already exists");
+        }
+
+        // force every register to USER
+        user.setRole("USER");
+
+        repo.save(user);
+
+        return ResponseEntity.ok("User registered successfully");
     }
     
     @GetMapping("/test")

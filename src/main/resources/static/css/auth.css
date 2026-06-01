@@ -1,4 +1,14 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+}
 /* ================= FULL SCREEN CENTER ================= */
 .auth-container {
 
@@ -12,7 +22,7 @@
 
     background:
     linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
-    url('/images/fruits.jpg');
+    url('/images/video.mp4');
 
     background-size: cover;
     background-position: center;
@@ -24,7 +34,7 @@
     width: 100%;
     max-width: 420px;
 
-    background: rgba(255,255,255,0.97);
+    background: rgba(255,255,255,0.1);
     border-radius: 14px;
 
     padding: 30px;
@@ -61,7 +71,11 @@
     font-weight: 600;
     transition: 0.2s;
 }
-
+.auth-card:hover{
+	transform: scale(1.03);
+	 transition: 0.6s;
+	 box-shadow: 0 0 6px rgba(100,167,69,0.3);
+}
 .auth-card button:hover {
     transform: scale(1.03);
 }
@@ -111,12 +125,58 @@
     width: 100%;
     max-width: 420px;
 }
+/* video */
+/* ================= VIDEO BACKGROUND ================= */
+.video-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    overflow: hidden;
+}
 
-/* prevent overflow on small screens */
+.video-bg video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* dark overlay */
+.video-bg::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.55);
+}
+/* ================= AUTH CENTER ================= */
+.auth-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+}
+.auth-card {
+    width: 100%;
+    max-width: 420px;
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(12px);
+    border-radius: 14px;
+    padding: 30px;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.25);
+    animation: fadeIn 0.5s ease-in-out;
+}
 @media (max-width: 576px) {
     .auth-card {
         margin: 10px;
-        padding: 20px;
+        padding: 18px;
     }
 
     .auth-card h3 {

@@ -51,6 +51,7 @@ public class ProductsController {
             @RequestParam String unit,
 
             @RequestParam Boolean available,
+            @RequestParam boolean featured,
 
             @RequestParam(required = false)
             MultipartFile imageFile
@@ -63,6 +64,7 @@ public class ProductsController {
                     price,
                     unit,
                     available,
+                    featured,
                     imageFile
             );
 
@@ -84,12 +86,12 @@ public class ProductsController {
             @PathVariable Long id,
 
             @RequestParam String name,
-
             @RequestParam Double price,
-
             @RequestParam String unit,
-
             @RequestParam Boolean available,
+
+            // ✅ ADD THIS
+            @RequestParam boolean featured,
 
             @RequestParam(required = false)
             MultipartFile imageFile
@@ -104,6 +106,7 @@ public class ProductsController {
                             price,
                             unit,
                             available,
+                            featured,   // ✅ PASS IT
                             imageFile
                     );
 

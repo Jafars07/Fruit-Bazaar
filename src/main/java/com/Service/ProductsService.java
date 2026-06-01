@@ -41,6 +41,7 @@ public class ProductsService {
             Double price,
             String unit,
             Boolean available,
+            Boolean featured,
             MultipartFile imageFile
     ) throws IOException {
 
@@ -69,6 +70,7 @@ public class ProductsService {
         product.setPrice(price);
         product.setUnit(unit);
         product.setAvailable(available);
+        product.setFeatured(featured);
         product.setImageUrl(imageUrl);
 
         return repo.save(product);
@@ -82,6 +84,7 @@ public class ProductsService {
             Double price,
             String unit,
             Boolean available,
+            Boolean featured,
             MultipartFile imageFile
     ) throws IOException {
 
@@ -93,6 +96,8 @@ public class ProductsService {
             existing.setPrice(price);
             existing.setUnit(unit);
             existing.setAvailable(available);
+            existing.setFeatured(featured);
+            
 
             // IF NEW IMAGE UPLOADED
             if(imageFile != null && !imageFile.isEmpty()) {

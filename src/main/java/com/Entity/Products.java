@@ -16,10 +16,16 @@ public class Products {
 	    @Column(unique = true)
 	    private String name;
 	    private double price;
-	    private String unit;
+	    public boolean isFeatured() {
+			return featured;
+		}
+		public void setFeatured(boolean featured) {
+			this.featured = featured;
+		}
+		private String unit;
 	    private String imageUrl;
 	    private boolean available;
-	    
+	    private boolean featured;
 	    public Long getId() {
 			return id;
 		}

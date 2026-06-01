@@ -5,7 +5,7 @@
 
     background:
         linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
-        url('https://img.pikbest.com/photo/20240927/the-splash-of-sweet-tropical-fruits-and-mixed-berries_10878903.jpg!bw800');
+        url('/images/allFruits.jpg');
 
     background-size: cover;
     background-position: center;
@@ -65,8 +65,12 @@
 }
 
 .product-card img {
-    height: 200px;
-    object-fit: cover;
+     width: 100%;
+    height: 220px;
+    object-fit: contain;
+    background: #fff;
+    padding: 10px;
+    border-radius: 12px 12px 0 0;
 }
 
 /* ================= WHOLESALE SECTION ================= */
@@ -163,4 +167,74 @@
     .product-card img {
         height: 160px;
     }
+}
+.logo {
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.logo-f {
+  font-size: 1.6rem;
+  color: #ff2e63;
+  font-family: 'Brush Script MT', cursive;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+/* dark MOde */
+/* default */
+body{
+    background:#ffffff;
+    color:#222;
+    transition:0.3s ease;
+}
+
+/* dark */
+body.dark-mode{
+    background:#111;
+    color:#fff;
+}
+
+/* navbar */
+body.dark-mode .navbar{
+    background:#1b1b1b !important;
+}
+
+/* cards */
+body.dark-mode .card{
+    background:#1e1e1e;
+    color:#fff;
+    border:1px solid #333;
+}
+
+/* product text */
+body.dark-mode .card-title,
+body.dark-mode p,
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode h5{
+    color:#fff;
+}
+
+/* footer */
+body.dark-mode footer{
+    background:#1b1b1b;
+    color:#fff;
+}
+
+/* inputs */
+body.dark-mode input,
+body.dark-mode textarea,
+body.dark-mode select{
+    background:#222;
+    color:#fff;
+    border:1px solid #555;
+}
+
+/* button */
+.theme-toggle{
+    border:none;
+    background:none;
+    font-size:20px;
 }
