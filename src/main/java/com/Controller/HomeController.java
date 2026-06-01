@@ -29,7 +29,7 @@ public class HomeController {
 	
 	@GetMapping("/my-orders")
 	public String myOrdersPage() {
-	    return "MyOrder";
+	    return "myorder";
 	}
 	
 	@GetMapping("/products")
@@ -42,9 +42,9 @@ public class HomeController {
         return "admin";
     }
     
-    @GetMapping("/Order-Details")
+    @GetMapping("/order-details")
     public String orderDetailsPage() {
-        return "Order-Details";
+        return "order-details";
     }
     
     @GetMapping("/checkout")

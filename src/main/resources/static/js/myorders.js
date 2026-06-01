@@ -56,7 +56,7 @@ function loadOrders() {
 
 // 🔍 VIEW ITEMS
 function viewOrder(orderId) {
-    window.location.href = `/Order-Details?orderId=${orderId}`;
+    window.location.href = `/order-details?orderId=${orderId}`;
 }
 
 // 🔓 LOGOUT

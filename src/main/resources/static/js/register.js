@@ -13,12 +13,14 @@ document.getElementById("registerForm").addEventListener("submit", function(e) {
         },
         body: JSON.stringify(user)
     })
+	
     .then(res => {
         if (!res.ok) {
             throw new Error("User already exists");
         }
         return res.text();
     })
+	
     .then(data => {
 
         // ✅ success toast stays
