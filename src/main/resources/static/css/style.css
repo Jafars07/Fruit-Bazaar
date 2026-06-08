@@ -238,3 +238,23 @@ body.dark-mode select{
     background:none;
     font-size:20px;
 }
+/* map */
+.map-section {
+  padding: 40px 20px;
+}
+
+.map-container {
+  width: 100%;
+  max-width: 900px;
+  margin: auto;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  padding-bottom:30px;
+}
+
+.map-container iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+}

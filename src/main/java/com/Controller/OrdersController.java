@@ -8,16 +8,25 @@ import java.time.LocalTime;
 import java.util.List;
 import com.dto.CheckoutRequest;
 import com.Entity.Orders;
+import com.Entity.User;
 import com.Entity.Cart;
 import com.Entity.OrderItem;
 
 import com.Repository.OrdersRepository;
+import com.Repository.UserRepository;
+import com.Service.EmailService;
 import com.Repository.CartRepository;
 import com.Repository.OrderItemRepository;
 
 @RestController
 @RequestMapping("/api/orders")
 public class OrdersController {
+	
+	@Autowired
+	private UserRepository userRepository;
+	
+	@Autowired
+	private EmailService emailService;
 
     @Autowired
     private OrdersRepository orderRepo;
@@ -80,6 +89,32 @@ public class OrdersController {
         savedOrder.setTotalAmount(total);
 
         orderRepo.save(savedOrder);
+        
+        /* Email for Customer confirmation */
+        User user = userRepository.findById(userId).orElse(null);
+
+        if (user != null) {
+
+            emailService.sendCustomerConfirmationEmail(
+                    user.getUsername(), // username is email
+                    savedOrder.getCustomerName(),
+                    savedOrder.getId(),
+                    total
+            );
+        }
+        
+		/* Email for Admin */
+        try {
+            emailService.sendOrderNotification(
+                savedOrder.getId(),
+                savedOrder.getCustomerName(),
+                savedOrder.getPhone(),
+                savedOrder.getAddress(),
+                total
+            );
+        } catch (Exception e) {
+            System.out.println("Email notification failed: " + e.getMessage());
+        }
 
         cartRepo.deleteByUserId(userId);
 
