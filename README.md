@@ -1,5 +1,4 @@
 🍎 Fruit-Bazaar
-📌 Project Overview
 
 Fruit-Bazaar is a full-stack e-commerce web application that enables users to browse, search, and purchase fresh fruits online. The platform provides a seamless shopping experience with secure authentication, product management, shopping cart functionality, and order processing. An admin dashboard allows efficient inventory and product management.
 
@@ -20,6 +19,7 @@ Update Product Details
 Delete Products
 Manage Inventory
 View Customer Orders
+
 🛠️ Technologies Used
 Frontend
 HTML5
@@ -37,6 +37,7 @@ Tools & Platforms
 Maven
 Git & GitHub
 Render (Deployment)
+
 📂 Project Structure
 Fruit-Bazaar/
 │
@@ -49,6 +50,7 @@ Fruit-Bazaar/
 ├── pom.xml
 ├── README.md
 └── screenshots/
+
 ⚙️ Installation & Setup
 Prerequisites
 Java 17 or above
@@ -112,7 +114,7 @@ Live URL: https://fruit-bazaar.onrender.com
 
 Jafar Sadiq
 
-GitHub: https://github.com/your-username
+GitHub: https:https://github.com/Jafars07
 LinkedIn: https://linkedin.com/in/your-profile
 ⭐ Support
 
