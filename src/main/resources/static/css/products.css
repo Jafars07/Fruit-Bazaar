@@ -1,109 +1,536 @@
-body {
-    background-color: #f5f5f5;
+/* =========================
+   GLOBAL
+========================= */
+
+body{
+    background:#f5f7fa;
 }
 
-/* product card */
-.product-card {
-    border-radius: 12px;
-    transition: 0.2s ease;
+.logo{
+    font-size:1.3rem;
+    font-weight:600;
+    letter-spacing:1px;
 }
 
-.product-card:hover {
-    transform: scale(1.02);
+.logo-f{
+    font-size:1.6rem;
+    color:#ff2e63;
+    font-family:'Brush Script MT',cursive;
 }
 
-/* image */
-.product-img {
-    width: 100%;
-    height: 220px;
-    object-fit: contain;
-    background: #fff;
-    padding: 10px;
-    border-radius: 12px 12px 0 0;
+/* =========================
+   HEADER
+========================= */
+
+.products-header{
+	margin-top:15px;
+    text-align:center;
+    margin-bottom:40px;
 }
 
-/* price */
-.price {
-    font-weight: bold;
-    color: #28a745;
-}
-/* availability text */
-.availability {
-    font-size: 14px;
-    font-weight: 500;
+.products-header h2{
+    font-size:2.5rem;
+    font-weight:800;
+    color:#111827;
+    margin-bottom:10px;
 }
 
-/* green dot */
-.available {
-    color: #28a745;
+.products-header p{
+    color:#6b7280;
+    font-size:1.05rem;
 }
 
-/* red dot */
-.unavailable {
-    color: #dc3545;
+/* =========================
+   SEARCH BAR
+========================= */
+
+.search-wrapper{
+    max-width:700px;
+    margin:auto;
 }
 
-/* button polish */
-.product-card .btn {
-    border-radius: 8px;
-    font-size: 14px;
-    padding: 6px;
-}
-/* center the toast */
-.toast-container-custom {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 9999;
+.search-box{
+    height:55px;
+    border-radius:50px;
+    padding:0 22px;
+    border:2px solid #22c55e;
+    box-shadow:0 8px 20px rgba(0,0,0,.05);
+    margin-bottom:30px;
 }
 
-/* make toast look like popup */
-.toast {
-    min-width: 250px;
-    text-align: center;
-    border-radius: 10px;
-    font-weight: 500;
-    opacity: 0.95;
+.search-box:focus{
+    border-color:#16a34a;
+    box-shadow:0 0 0 4px rgba(34,197,94,.15);
 }
 
-.toast.show {
-    animation: fadeInScale 0.3s ease;
-}
-.toast {
-    opacity: 0;
-    transition: opacity 0.3s ease;
+/* =========================
+   PRODUCT CARD
+========================= */
+
+.product-card{
+    background:#fff;
+    border:none;
+    border-radius:22px;
+    overflow:hidden;
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+    transition:.35s;
+    height:100%;
 }
 
-.toast.show {
-    opacity: 1;
+.product-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 18px 40px rgba(0,0,0,.15);
 }
 
-@keyframes fadeInScale {
-    from {
-        transform: scale(0.8);
-        opacity: 0;
+/* =========================
+   IMAGE
+========================= */
+
+.product-img{
+    position:relative;
+    background:#f8fff9;
+    padding:20px;
+    overflow:hidden;
+}
+
+.product-img img{
+    width:100%;
+    height:220px;
+    object-fit:contain;
+    transition:.5s;
+}
+
+.product-card:hover .product-img img{
+    transform:scale(1.08);
+}
+
+.product-card{
+    border:2px solid transparent;
+}
+
+.product-card:hover{
+    border-color:#22c55e;
+
+    box-shadow:
+        0 0 20px rgba(34,197,94,.25),
+        0 25px 50px rgba(0,0,0,.15);
+
+    transform:translateY(-10px);
+}
+
+/* =========================
+   BADGE
+========================= */
+
+.fruit-tag{
+    position:absolute;
+    top:12px;
+    left:12px;
+
+    background:#22c55e;
+    color:white;
+
+    padding:6px 12px;
+
+    border-radius:30px;
+
+    font-size:12px;
+    font-weight:600;
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.product-content{
+    padding:18px;
+}
+
+.product-content h4{
+    font-size:1.2rem;
+    font-weight:700;
+    color:#111827;
+    margin-bottom:10px;
+}
+
+/* =========================
+   RATING
+========================= */
+
+.product-rating{
+    color:#f59e0b;
+    margin-bottom:10px;
+}
+
+/* =========================
+   STOCK
+========================= */
+
+.stock-badge{
+    color:#16a34a;
+    font-weight:600;
+    margin-bottom:10px;
+}
+
+/* =========================
+   PRICE
+========================= */
+
+.price-row{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:10px;
+}
+
+.price{
+    color:#16a34a;
+    font-size:1.3rem;
+    font-weight:800;
+}
+
+.unit{
+    color:#6b7280;
+}
+
+/* =========================
+   META
+========================= */
+
+.product-meta{
+    color:#6b7280;
+    font-size:14px;
+    margin-bottom:15px;
+}
+
+/* =========================
+   BUTTON
+========================= */
+
+.buy-btn{
+    width:100%;
+    border:none;
+    border-radius:12px;
+    padding:12px;
+
+    background:linear-gradient(
+        135deg,
+        #22c55e,
+        #16a34a
+    );
+
+    color:white;
+    font-weight:700;
+
+    transition:.3s;
+}
+
+.buy-btn:hover{
+    transform:translateY(-2px);
+}
+
+/* =========================
+   TOAST
+========================= */
+
+.toast-container-custom{
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    z-index:9999;
+}
+
+.toast{
+    min-width:250px;
+    text-align:center;
+    border-radius:12px;
+    font-weight:600;
+    opacity:.95;
+}
+
+.toast.show{
+    animation:fadeInScale .3s ease;
+}
+
+@keyframes fadeInScale{
+    from{
+        transform:scale(.8);
+        opacity:0;
     }
-    to {
-        transform: scale(1);
-        opacity: 1;
+    to{
+        transform:scale(1);
+        opacity:1;
     }
-}
-/* mobile */
-@media (max-width: 576px) {
-    .product-img {
-        height: 180px;
-    }
-}
-.logo {
-  font-size: 1.3rem;
-  font-weight: 600;
-  letter-spacing: 1px;
 }
 
-.logo-f {
-  font-size: 1.6rem;
-  color: #ff2e63;
-  font-family: 'Brush Script MT', cursive;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:768px){
+
+    .products-header h2{
+        font-size:1.9rem;
+    }
+
+    .product-img{
+        height:190px;
+    }
+
+    .search-box{
+        height:50px;
+    }
+}
+/* =========================
+   navbar
+========================= */
+.navbar{
+    position:sticky;
+    top:0;
+    z-index:999;
+
+    background:
+    linear-gradient(
+    135deg,
+    #22c55e 0%,
+    #16a34a 50%,
+    #f59e0b 100%);
+
+    padding:16px 0;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,.15);
+}
+
+.logo{
+    font-size:1.8rem;
+    font-weight:800;
+
+    color:white !important;
+
+    transition:.3s;
+}
+
+.logo-f{
+    color:#ffe600;
+    font-size:2rem;
+}
+
+.nav-link{
+    color:white !important;
+
+    font-weight:600;
+
+    margin-left:10px;
+
+    position:relative;
+
+    transition:.3s;
+}
+
+.nav-link:hover{
+    color:#fff7cc !important;
+}
+
+.nav-link::after{
+    content:'';
+
+    position:absolute;
+
+    left:0;
+    bottom:-4px;
+
+    width:0;
+    height:3px;
+
+    background:#22c55e;
+
+    transition:.3s;
+}
+
+.nav-link:hover::after{
+    width:100%;
+}
+
+/* ===================================
+   TABLET
+=================================== */
+
+@media (max-width: 992px){
+
+    .products-header h2{
+        font-size:2rem;
+    }
+
+    .products-header p{
+        font-size:0.95rem;
+    }
+
+    .product-content{
+        padding:20px;
+    }
+
+    .product-img img{
+        height:180px;
+    }
+
+    .price{
+        font-size:24px;
+    }
+}
+
+/* ===================================
+   MOBILE
+=================================== */
+
+@media (max-width: 768px){
+
+    .navbar{
+        padding:12px 0;
+    }
+
+    .logo{
+        font-size:1.4rem;
+    }
+
+    .logo-f{
+        font-size:1.6rem;
+    }
+
+    .navbar-nav{
+        text-align:center;
+        padding-top:15px;
+    }
+
+    .nav-item{
+        margin:5px 0;
+    }
+
+    .products-header{
+        margin-bottom:25px;
+        padding:0 15px;
+    }
+
+    .products-header h2{
+        font-size:1.8rem;
+    }
+
+    .products-header p{
+        font-size:0.9rem;
+    }
+
+    .search-wrapper{
+        padding:0 15px;
+    }
+
+    .search-box{
+        height:50px;
+        font-size:14px;
+    }
+
+    .category-filter{
+        gap:8px;
+        padding:0 10px;
+        margin-bottom:25px;
+    }
+
+    .category-filter button{
+        padding:8px 15px;
+        font-size:13px;
+    }
+
+    .product-card{
+        border-radius:20px;
+    }
+
+    .product-img{
+        padding:15px;
+    }
+
+    .product-img img{
+        height:170px;
+    }
+
+    .fruit-tag{
+        font-size:11px;
+        padding:5px 10px;
+    }
+
+    .product-content{
+        padding:18px;
+    }
+
+    .product-content h4{
+        font-size:18px;
+        margin-bottom:10px;
+    }
+
+    .product-rating{
+        font-size:13px;
+    }
+
+    .stock-badge{
+        font-size:11px;
+        padding:5px 10px;
+    }
+
+    .price{
+        font-size:24px;
+    }
+
+    .unit{
+        font-size:14px;
+    }
+
+    .product-meta{
+        font-size:13px;
+    }
+
+    .buy-btn{
+        padding:12px;
+        font-size:15px;
+    }
+
+    /* Keep hover effect on touch devices */
+    .product-card:active{
+        transform:scale(.98);
+    }
+}
+
+/* ===================================
+   SMALL MOBILE
+=================================== */
+
+@media (max-width: 576px){
+
+    .container{
+        padding-left:12px;
+        padding-right:12px;
+    }
+
+    .products-header h2{
+        font-size:1.6rem;
+    }
+
+    .product-img img{
+        height:150px;
+    }
+
+    .product-content{
+        padding:15px;
+    }
+
+    .price{
+        font-size:22px;
+    }
+
+    .buy-btn{
+        border-radius:40px;
+    }
+
+    .toast{
+        min-width:220px;
+        font-size:14px;
+    }
 }

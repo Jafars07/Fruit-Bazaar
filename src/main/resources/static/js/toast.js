@@ -6,7 +6,7 @@ function showToast(message, type = "success") {
 
     // center screen
     toast.style.position = "fixed";
-    toast.style.top = "50%";
+    toast.style.top = "90%";
     toast.style.left = "50%";
     toast.style.transform = "translate(-50%, -50%)";
 

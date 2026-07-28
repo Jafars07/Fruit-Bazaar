@@ -1,0 +1,209 @@
+@charset "UTF-8";
+ body {
+            background: #f4f7fb;
+            font-family: "Segoe UI", sans-serif;
+        }
+
+        .page-title {
+
+            font-weight: 700;
+
+            color: #198754;
+        }
+
+        .order-card{
+    background:#fff;
+    border:none;
+    border-radius:18px;
+    padding:16px 20px;
+
+    box-shadow:
+    0 6px 20px rgba(0,0,0,.08);
+
+    transition:.3s;
+}
+
+.order-card:hover{
+    transform:translateY(-4px);
+}
+
+        .order-card:hover {
+            transform: translateY(-3px);
+        }
+
+
+
+        .price {
+            color: #198754;
+            font-weight: 700;
+        }
+
+        .qty-badge {
+
+            background: #198754;
+
+            color: white;
+
+            padding: 6px 12px;
+
+            border-radius: 30px;
+
+            font-size: 14px;
+        }
+
+        .summary-card{
+    background:#fff;
+    border:none;
+    border-radius:20px;
+    padding:20px;
+
+    box-shadow:
+    0 8px 25px rgba(0,0,0,.08);
+}
+
+        .back-btn {
+
+            border-radius: 10px;
+
+            padding: 10px 18px;
+
+            font-weight: 600;
+        }
+
+
+            .order-card {
+
+                padding: 15px !important;
+            }
+
+            h5 {
+                font-size: 16px;
+            }
+
+            .summary-card {
+                padding: 18px;
+            }    
+ 
+
+.order-summary{
+    background:#fff;
+    border-radius:20px;
+    padding:20px;
+    margin-bottom:25px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    box-shadow:
+    0 8px 25px rgba(0,0,0,.08);
+}
+
+.status-badge{
+    background:#dcfce7;
+    color:#16a34a;
+    padding:8px 16px;
+    border-radius:30px;
+}
+
+.order-card{
+    background:#fff;
+    border-radius:20px;
+    box-shadow:
+    0 8px 25px rgba(0,0,0,.08);
+
+    transition:.3s;
+}
+
+.order-card:hover{
+    transform:translateY(-5px);
+}
+
+.summary-card{
+    border-radius:20px;
+    box-shadow:
+    0 8px 25px rgba(0,0,0,.08);
+}
+
+.price{
+    color:#16a34a;
+    font-weight:800;
+}
+.product-name{
+    font-size:1.05rem;
+    font-weight:700;
+    color:#1f2937;
+    margin-bottom:5px;
+}
+
+.product-meta{
+    color:#6b7280;
+    font-size:.95rem;
+}
+
+.qty-badge{
+    background:#16a34a;
+    color:#fff;
+
+    padding:5px 12px;
+
+    border-radius:30px;
+
+    font-size:.85rem;
+    font-weight:600;
+}
+
+@media(max-width:576px){
+
+    .order-card .d-flex{
+        flex-direction:column;
+        align-items:flex-start !important;
+        gap:10px;
+    }
+
+    .price{
+        align-self:flex-end;
+    }
+
+    .back-btn{
+        padding:6px 12px;
+        font-size:.9rem;
+    }
+}
+.back-btn{
+
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+
+    text-decoration:none;
+
+    background:white;
+
+    color:#22c55e;
+
+    padding:14px 22px;
+
+    border-radius:18px;
+
+    font-weight:700;
+
+    box-shadow:
+    0 10px 25px rgba(0,0,0,.08);
+
+    transition:.3s;
+}
+
+.back-btn:hover{
+
+    color:#15803d;
+
+    transform:translateX(-4px);
+
+    box-shadow:
+    0 15px 35px rgba(0,0,0,.15);
+}
+
+.back-btn i{
+    font-size:18px;
+}

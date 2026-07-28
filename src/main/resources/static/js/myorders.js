@@ -17,38 +17,82 @@ function loadOrders() {
             const container = document.getElementById("ordersContainer");
             container.innerHTML = "";
 
-            if (!data || data.length === 0) {
-                container.innerHTML = "<h5>No orders found</h5>";
-                return;
-            }
+			if (!data || data.length === 0) {
+
+			    container.innerHTML = `
+			        <div class="empty-orders">
+
+			            <div style="font-size:70px">
+			       
+			            </div>
+
+			            <h3>No Orders Yet</h3>
+
+			            <p>
+			                Start shopping and your orders will appear here.
+			            </p>
+
+			            <a href="/products" class="btn btn-success mt-2">
+			                Browse Products
+			            </a>
+
+			        </div>
+			    `;
+
+			    return;
+			}
 
             data.forEach(order => {
 
-                container.innerHTML += `
-                    <div class="card order-card shadow-sm p-3 mb-3">
+				container.innerHTML += `
+				<div class="order-card">
 
-                        <div class="d-flex justify-content-between">
-                            <h5>Order #${order.id}</h5>
-                            <span class="badge bg-success">${order.status}</span>
-                        </div>
+				    <div class="d-flex justify-content-between align-items-start flex-wrap">
 
-                        <p class="text-muted mb-1">
-                            ${order.orderDate || "N/A"} • ${order.orderTime || ""}
-                        </p>
+				        <div>
 
-                        <div class="d-flex justify-content-between align-items-center mt-2">
+				            <div class="order-id">
+				                Order #${order.id}
+				            </div>
 
-                            <h6 class="mb-0">₹${order.totalAmount}</h6>
+				            <div class="order-date">
+				                📅 ${order.orderDate || "N/A"}
+				                ${order.orderTime || ""}
+				            </div>
 
-                            <button class="btn btn-primary btn-sm"
-                                onclick="viewOrder(${order.id})">
-                                View Items
-                            </button>
+				        </div>
 
-                        </div>
+						<span class="
+						status
+						${order.status === 'DELIVERED' ? 'status-delivered' :
+						  order.status === 'PENDING' ? 'status-pending' :
+						  'status-cancelled'}
+						">
+						    ${order.status}
+						</span>
 
-                    </div>
-                `;
+				    </div>
+
+				    <hr>
+
+				    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+
+				        <div class="order-total">
+				            ₹${order.totalAmount}
+				        </div>
+
+				        <button
+				            class="btn btn-success"
+				            onclick="viewOrder(${order.id})">
+
+				            View Items
+
+				        </button>
+
+				    </div>
+
+				</div>
+				`;
             });
         })
         .catch(err => console.log(err));
@@ -64,3 +108,25 @@ function logout() {
     localStorage.removeItem("userId");
     window.location.href = "/login";
 }
+
+
+/*HAmaberger return state*/
+document.addEventListener("click", function (event) {
+
+    const navbarCollapse =
+        document.getElementById("navBar");
+
+    const navbarToggler =
+        document.querySelector(".navbar-toggler");
+
+    if (
+        navbarCollapse.classList.contains("show") &&
+        !navbarCollapse.contains(event.target) &&
+        !navbarToggler.contains(event.target)
+    ) {
+
+        bootstrap.Collapse
+            .getInstance(navbarCollapse)
+            .hide();
+    }
+});

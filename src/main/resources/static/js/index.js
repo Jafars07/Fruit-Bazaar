@@ -12,39 +12,88 @@ fetch("/api/products/all")
 
         .forEach(p => {
 
-            box.innerHTML += `
+			box.innerHTML += `
+			<div class="col-12 col-sm-6 col-md-4">
 
-            <div class="col-12 col-sm-6 col-md-4">
+			    <div class="product-card">
 
-                <div class="card product-card h-100 text-center">
+			        <div class="product-img">
 
-                    <img src="${p.imageUrl}"
-                         class="card-img-top"
-                         onerror="this.src='/images/no-image.png'">
+			            <img src="${p.imageUrl}"
+			                 onerror="this.src='/images/no-image.png'">
 
-                    <div class="card-body">
+			            <span class="fruit-tag">
+			                Fresh
+			            </span>
 
-                        <h5>${p.name}</h5>
+			        </div>
 
-                        <p>
-                           ₹${p.price}
-                           / ${p.unit}
-                        </p>
+					<div class="product-content">
 
-						<button
-						   class="btn btn-success btn-sm"
-						   onclick="buyNow()">
-						   Buy
-						</button>
+					    <h4>${p.name}</h4>
 
-                    </div>
+					    <div class="product-rating">
+					        ⭐⭐⭐⭐⭐
+					    </div>
 
-                </div>
+					    <div class="stock-badge">
+					        ✓ In Stock
+					    </div>
 
-            </div>
-            `;
+					    <div class="price-row">
+
+					        <span class="price">
+					            ₹${p.price}
+					        </span>
+
+					        <span class="unit">
+					            / ${p.unit}
+					        </span>
+
+					    </div>
+
+					    <div class="product-meta">
+					        🚚 Same Day Delivery
+					    </div>
+
+					    <button
+					        class="buy-btn"
+					        onclick="buyNow()">
+
+					        🛒 Add To Cart
+
+					    </button>
+
+					</div>
+
+			    </div>
+
+			</div>
+			`;
         });
 
+});
+
+
+/*HAmaberger return state*/
+document.addEventListener("click", function (event) {
+
+    const navbarCollapse =
+        document.getElementById("navBar");
+
+    const navbarToggler =
+        document.querySelector(".navbar-toggler");
+
+    if (
+        navbarCollapse.classList.contains("show") &&
+        !navbarCollapse.contains(event.target) &&
+        !navbarToggler.contains(event.target)
+    ) {
+
+        bootstrap.Collapse
+            .getInstance(navbarCollapse)
+            .hide();
+    }
 });
 
 function buyNow() {

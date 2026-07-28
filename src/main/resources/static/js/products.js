@@ -1,155 +1,305 @@
+// =========================
+// LOAD PRODUCTS
+// =========================
+
 fetch("/api/products")
-  .then(res => res.json())
-  .then(products => {
+    .then(res => res.json())
+    .then(products => {
 
-    const container = document.getElementById("productList");
-    container.innerHTML = "";
+        const container =
+            document.getElementById("productList");
 
-    products.forEach(p => {
+        container.innerHTML = "";
 
-      const availability = p.available 
-        ? `<span class="badge bg-success">Available</span>`
-        : `<span class="badge bg-danger">Out of Stock</span>`;
+        products.forEach(p => {
 
-      const card = `
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
-          <div class="card product-card h-100 shadow-sm">
+            const card = `
+            <div class="col-12 col-md-6 col-lg-4 mb-4">
 
-            <!-- 🔥 IMAGE FIX (fallback + error handling) -->
-            <img src="${p.imageUrl || `https://via.placeholder.com/200?text=${p.name}`}" 
-                 class="card-img-top product-img" 
-                 alt="${p.name}"
-                 onerror="this.src='https://via.placeholder.com/200?text=Fruit'">
+                <div class="product-card">
 
-            <div class="card-body d-flex flex-column">
+                    <div class="product-img">
 
-              <h5 class="card-title">${p.name}</h5>
+                        <img
+                            src="${p.imageUrl || `https://via.placeholder.com/300?text=${p.name}`}"
+                            alt="${p.name}"
+                            onerror="this.src='/images/no-image.png'">
 
-              <p class="price">₹${p.price} / ${p.unit}</p>
+                        <span class="fruit-tag">
+                            Fresh
+                        </span>
 
-			  <div class="mt-2 mb-2">
-			      ${p.available 
-			          ? `<span class="availability available">● Available</span>`
-			          : `<span class="availability unavailable">● Not Available</span>`
-			      }
-			  </div>
+                    </div>
 
-			  <button class="btn btn-success btn-sm mt-auto w-100"
-                onclick='addToCart(${JSON.stringify(p)})'>
-                ${p.available ? "Add to Cart" : "Out of Stock"}
-              </button>
+                    <div class="product-content">
+
+                        <h4 class="product-name">
+                            ${p.name}
+                        </h4>
+
+                        <div class="product-rating">
+                            ⭐⭐⭐⭐⭐
+                        </div>
+
+                        ${
+                            p.available
+                            ? `<div class="stock-badge">✓ In Stock</div>`
+                            : `<div class="stock-badge text-danger">✗ Out of Stock</div>`
+                        }
+
+                        <div class="price-row">
+
+                            <span class="price">
+                                ₹${p.price}
+                            </span>
+
+                            <span class="unit">
+                                / ${p.unit}
+                            </span>
+
+                        </div>
+
+                        <div class="product-meta">
+                            🚚 Same Day Delivery
+                        </div>
+
+                        <button
+                            class="buy-btn"
+                            ${!p.available ? "disabled" : ""}
+                            onclick='addToCart(${JSON.stringify(p)})'>
+
+                            🛒 Add To Cart
+
+                        </button>
+
+                    </div>
+
+                </div>
 
             </div>
-          </div>
-        </div>
-      `;
+            `;
 
-      container.innerHTML += card;
+            container.innerHTML += card;
+        });
+    })
+    .catch(error => {
+
+        console.error(error);
+
+        showToast(
+            "Failed to load products",
+            "error"
+        );
+		updateCartCount();
+
     });
-  });
 
 
-// 🔥 UPDATED ADD TO CART (TOAST + SAFETY)
+// =========================
+// ADD TO CART
+// =========================
+
 function addToCart(product) {
 
-    const userId = localStorage.getItem("userId");
+    const userId =
+        localStorage.getItem("userId");
 
     if (!userId || userId === "null") {
 
-        showToast("Please login first", "success");
+        showToast(
+            "Please login first",
+            "warning"
+        );
 
         setTimeout(() => {
+
             window.location.href = "/login";
+
         }, 1000);
 
         return;
     }
 
     fetch("/api/cart/add", {
+
         method: "POST",
+
         headers: {
             "Content-Type": "application/json"
         },
+
         body: JSON.stringify({
+
             userId: parseInt(userId),
             productId: product.id,
             quantity: 1
+
         })
-    })
-    .then(res => res.json())
-    .then(() => {
-
-        // ✅ success toast
-        showToast(product.name + " added to cart!", "success");
 
     })
-    .catch(err => {
 
-        console.log(err);
+    .then(res => {
 
-        // ❌ error toast
-        showToast("Failed to add item", "error");
+        if (!res.ok) {
+            throw new Error();
+        }
+
+        return res.json();
+
+    })
+
+	.then(() => {
+
+	    showToast(
+	        product.name + " added to cart!",
+	        "success"
+	    );
+
+	    updateCartCount();
+
+	})
+
+    .catch(error => {
+
+        console.error(error);
+
+        showToast(
+            "Failed to add item",
+            "error"
+        );
+
     });
 }
 
 
-// 🔥 TOAST FUNCTION (ADD THIS IF NOT ALREADY PRESENT)
+// =========================
+// TOAST
+// =========================
+
 function showToast(message, type = "success") {
 
-    const toastEl = document.getElementById("liveToast");
-    const toastMsg = document.getElementById("toastMsg");
+    const toastEl =
+        document.getElementById("liveToast");
 
-    toastEl.classList.remove("bg-success", "bg-danger", "bg-warning");
+    const toastMsg =
+        document.getElementById("toastMsg");
 
-    if (type === "success") toastEl.classList.add("bg-success");
-    if (type === "error") toastEl.classList.add("bg-danger");
-    if (type === "warning") toastEl.classList.add("bg-warning");
+    toastEl.classList.remove(
+        "bg-success",
+        "bg-danger",
+        "bg-warning"
+    );
+
+    if (type === "success") {
+        toastEl.classList.add("bg-success");
+    }
+
+    if (type === "error") {
+        toastEl.classList.add("bg-danger");
+    }
+
+    if (type === "warning") {
+        toastEl.classList.add("bg-warning");
+    }
 
     toastMsg.innerText = message;
 
-	const toast = new bootstrap.Toast(toastEl, {
-	    delay: 2000,   // ⏱️ disappears after 2 sec
-	    autohide: true
-	});
+    const toast = new bootstrap.Toast(
+        toastEl,
+        {
+            delay: 2000,
+            autohide: true
+        }
+    );
 
-	toast.show();
-
-	// 🔥 force hide (extra safety)
-	setTimeout(() => {
-	    toast.hide();
-	}, 2200);
+    toast.show();
 }
 
-//Search Bar
-// 🔍 SEARCH PRODUCTS
+
+// =========================
+// SEARCH PRODUCTS
+// =========================
+
 function filterProducts() {
 
     const searchValue =
         document.getElementById("searchBox")
         .value
-        .toLowerCase();
+        .toLowerCase()
+        .trim();
 
     const products =
-        document.querySelectorAll("#productList > div");
+        document.querySelectorAll(
+            "#productList > div"
+        );
 
     products.forEach(product => {
 
         const productName =
-            product.querySelector(".card-title")
+            product.querySelector(".product-name")
             .innerText
             .toLowerCase();
 
-        if (productName.includes(searchValue)) {
+        if (
+            productName.includes(searchValue)
+        ) {
 
             product.style.display = "";
 
         } else {
 
             product.style.display = "none";
+
         }
+
     });
+
 }
+
+
+
+
+//cart update
+function updateCartCount() {
+
+    const userId = localStorage.getItem("userId");
+
+    if (!userId) {
+        document.getElementById("cartCount").innerText = "0";
+        return;
+    }
+
+    fetch(`/api/cart/user/${userId}`)
+        .then(res => res.json())
+        .then(cartItems => {
+
+            let count = 0;
+
+            cartItems.forEach(item => {
+                count += item.quantity;
+            });
+
+            document.getElementById("cartCount").innerText = count;
+        })
+        .catch(err => {
+
+            console.log(err);
+
+            document.getElementById("cartCount").innerText = "0";
+        });
+}
+// =========================
+// LOGOUT
+// =========================
+
 function logout() {
+
     localStorage.removeItem("userId");
+
     window.location.href = "/login";
+
 }
+updateCartCount();
+
+
+

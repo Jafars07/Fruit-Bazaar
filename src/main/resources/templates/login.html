@@ -8,7 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/index.css">
     <link rel="stylesheet" href="/css/auth.css">
 </head>
 
@@ -19,12 +19,12 @@
     </video>
 </div>
 <!-- 🔹 NAVBAR -->
-<nav class="navbar navbar-dark bg-success">
+<nav class="navbar navbar-expand-lg navbar-dark bg-success">
     <div class="container">
-        <a class="navbar-brand logo" href="/">
+       <a class="navbar-brand logo" href="/">
   🥥 <span class="logo-f">F</span>ruit Bazaar 🍓
 </a>
-    </div>
+</div>
 </nav>
 
 <!-- 🔹 AUTH WRAPPER -->
@@ -32,32 +32,63 @@
 
     <div class="auth-card">
 
-        <h3>🍎 Login</h3>
+        <div class="auth-header">
+
+    <div class="auth-icon">
+        🍎
+    </div>
+    <div class="login-badge">
+    🔐 Secure Login
+</div>
+
+    <h3>Welcome Back👋</h3>
+
+</div>
 
         <form id="loginForm">
 
             <div class="mb-3">
                 <label class="form-label"></label>
-                <input type="text" id="username" class="form-control" placeholder="Enter username" required>
+               <input
+    type="email"
+    id="username"
+    class="form-control modern-input"
+    placeholder="📧 Enter Email Address"
+    autocomplete="email"
+    required>
             </div>
             
 <div class="mb-3">
     <label class="form-label"></label>
 
     <div class="input-group">
-        <input type="password" id="password" class="form-control" placeholder="Enter password" required>
+        <input type="password" id="password" class="form-control modern-input" placeholder="🔒 Enter Password" required>
 
         <span class="input-group-text eye-btn" onclick="togglePassword('password')">
             <i class="bi bi-eye"></i>
         </span>
     </div>
 </div>
-            <button type="submit" class="btn btn-success w-100">
-                Login
-            </button>
+          <button
+    type="submit"
+    id="loginBtn"
+    class="btn login-btn w-100">
+
+    <span id="loginText">
+        🚀 Login
+    </span>
+
+</button>
 
         </form>
-
+        <div id="loginStatus"
+     class="text-center mt-3">
+</div> 
+        <div class="text-center mt-3">
+    <a href="/forgot-password" class="text-warning text-decoration-none">
+        Forgot Password?
+    </a>
+</div>
         <p class="text-center mt-3" style="color:white">
             Don't have an account?
             <a href="/register">Register</a>

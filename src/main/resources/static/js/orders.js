@@ -40,3 +40,25 @@ function loadOrderItems() {
         })
         .catch(err => console.error("Order items error:", err));
 }
+
+
+/*HAmaberger return state*/
+document.addEventListener("click", function (event) {
+
+    const navbarCollapse =
+        document.getElementById("navBar");
+
+    const navbarToggler =
+        document.querySelector(".navbar-toggler");
+
+    if (
+        navbarCollapse.classList.contains("show") &&
+        !navbarCollapse.contains(event.target) &&
+        !navbarToggler.contains(event.target)
+    ) {
+
+        bootstrap.Collapse
+            .getInstance(navbarCollapse)
+            .hide();
+    }
+});

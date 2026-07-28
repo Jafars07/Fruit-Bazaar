@@ -25,55 +25,15 @@
 <body>
 
 <!-- NAVBAR -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-success shadow-sm">
+<!-- MOBILE BACK BUTTON -->
+<div class="mobile-back-btn container">
 
-    <div class="container">
+    <a href="/admin" class="back-btn">
+        <i class="bi bi-arrow-left"></i>
+        Back To Admin
+    </a>
 
-        <a class="navbar-brand fw-bold"
-           href="/admin">
-
-            🍎 Fruit Stall Admin
-
-        </a>
-
-        <button class="navbar-toggler"
-                data-bs-toggle="collapse"
-                data-bs-target="#navBar">
-
-            <span class="navbar-toggler-icon"></span>
-
-        </button>
-
-        <div class="collapse navbar-collapse"
-             id="navBar">
-
-            <ul class="navbar-nav ms-auto">
-
-                <li class="nav-item">
-                    <a class="nav-link"
-                       href="/admin">
-
-                        Products
-
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link active"
-                       href="/admin-orders">
-
-                        Orders
-
-                    </a>
-                </li>
-
-            </ul>
-
-        </div>
-
-    </div>
-
-</nav>
+</div>
 
 
 <!-- CONTENT -->
@@ -96,8 +56,95 @@
         </div>
 
     </div>
+    <!-- DASHBOARD -->
 
 
+<div class="row g-3 mb-4">
+
+
+    <div class="col-lg-3 col-md-6">
+        <div class="dashboard-card">
+            <i class="bi bi-bag-check"></i>
+            <h4 id="totalOrders">0</h4>
+            <p>Total Orders</p>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+        <div class="dashboard-card success">
+            <i class="bi bi-truck"></i>
+            <h4 id="placedOrders">0</h4>
+            <p>Pending</p>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+        <div class="dashboard-card warning">
+            <i class="bi bi-check-circle"></i>
+            <h4 id="deliveredOrders">0</h4>
+            <p>Delivered</p>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+
+    <div class="dashboard-card revenue">
+
+    <select id="revenueFilter"
+            class="form-select form-select-sm revenue-filter"
+            onchange="updateRevenue()">
+
+        <option value="all">All Time</option>
+        <option value="today">Today</option>
+        <option value="week">This Week</option>
+        <option value="month">This Month</option>
+
+    </select>
+
+    <i class="bi bi-currency-rupee revenue-icon"></i>
+
+    <h4 id="totalRevenue">₹0</h4>
+
+    <p id="revenueLabel">
+        All Time Revenue
+    </p>
+
+</div>
+
+</div>
+
+
+<!-- SEARCH -->
+
+<div class="search-wrapper mb-4">
+
+    <input
+        type="text"
+        id="searchOrders"
+        class="form-control premium-search"
+        placeholder="🔍 Search customer name..."
+    >
+
+</div>
+
+<div class="order-filter-bar mb-4">
+
+    <button class="btn btn-success filter-active"
+        onclick="filterOrders('ALL')">
+    All
+</button>
+
+    <button class="btn btn-warning"
+            onclick="filterOrders('PLACED')">
+        Pending
+    </button>
+
+    <button class="btn btn-primary"
+            onclick="filterOrders('DELIVERED')">
+        Delivered
+    </button>
+
+</div>
     <!-- ORDERS -->
     <div id="ordersContainer"
          class="row g-4">

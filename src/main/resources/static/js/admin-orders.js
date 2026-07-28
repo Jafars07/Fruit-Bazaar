@@ -1,4 +1,30 @@
-document.addEventListener("DOMContentLoaded", loadOrders);
+document.addEventListener("DOMContentLoaded", () => {
+
+    loadOrders();
+
+    const searchBox = document.getElementById("searchOrders");
+
+    if (searchBox) {
+
+        searchBox.addEventListener("keyup", function () {
+
+            const value = this.value.toLowerCase();
+
+            document
+                .querySelectorAll(".order-card")
+                .forEach(card => {
+
+                    const text = card.innerText.toLowerCase();
+
+                    card.parentElement.style.display =
+                        text.includes(value)
+                            ? ""
+                            : "none";
+                });
+        });
+    }
+});
+let allOrders = [];
 
 function loadOrders() {
 
@@ -6,114 +32,338 @@ function loadOrders() {
         .then(res => res.json())
         .then(data => {
 
-            const container = document.getElementById("ordersContainer");
+            const container =
+                document.getElementById("ordersContainer");
+
             container.innerHTML = "";
 
             if (!data || data.length === 0) {
+
                 container.innerHTML = `
-                    <div class="text-center text-muted">
-                        <h5>No Orders Found</h5>
+                    <div class="text-center text-muted py-5">
+                        <h4>No Orders Found</h4>
                     </div>
                 `;
+
                 return;
             }
+			allOrders = data;
 
-            data.forEach(order => {
+            /* DASHBOARD COUNTS */
 
-                const statusColor =
-                    order.status === "DELIVERED"
-                        ? "bg-success"
-                        : order.status === "PLACED"
-                        ? "bg-warning"
-                        : "bg-primary";
+            const totalOrders = data.length;
 
-                container.innerHTML += `
+            const deliveredOrders =
+                data.filter(o => o.status === "DELIVERED").length;
 
-                <div class="col-lg-6 col-md-12">
+            const placedOrders =
+                data.filter(o => o.status === "PLACED").length;
 
-                    <div class="card shadow-sm border-0 p-4">
+            updateRevenue();
+            const totalOrdersEl =
+                document.getElementById("totalOrders");
 
-                        <!-- HEADER -->
-                        <div class="d-flex justify-content-between align-items-center">
+            const placedOrdersEl =
+                document.getElementById("placedOrders");
 
-                            <h5 class="fw-bold mb-0">
-                                Order #${order.id}
-                            </h5>
+            const deliveredOrdersEl =
+                document.getElementById("deliveredOrders");
 
-                            <span class="badge ${statusColor}">
-                                ${order.status}
-                            </span>
+            const revenueEl =
+                document.getElementById("totalRevenue");
 
-                        </div>
+            if (totalOrdersEl)
+                totalOrdersEl.innerText = totalOrders;
 
-                        <hr>
+            if (placedOrdersEl)
+                placedOrdersEl.innerText = placedOrders;
 
-                        <!-- CUSTOMER INFO -->
-                        <p><i class="bi bi-person"></i> <b>${order.customerName || "N/A"}</b></p>
+            if (deliveredOrdersEl)
+                deliveredOrdersEl.innerText = deliveredOrders;
 
-                        <p><i class="bi bi-telephone"></i> ${order.phone || "N/A"}</p>
+            updateRevenue();
 
-                        <p><i class="bi bi-geo-alt"></i> ${order.address || "N/A"}</p>
 
-                        <hr>
+            /* RENDER ORDERS */
 
-                        <!-- ORDER INFO -->
-                        <p><b>Total:</b> ₹${order.totalAmount}</p>
+			renderOrders(data);
+        })
+        .catch(err => {
 
-                        <p class="text-muted">
-                            ${order.orderDate} • ${order.orderTime}
-                        </p>
+            console.error(err);
 
-                        <!-- ACTIONS -->
-                        <div class="d-flex gap-2 mt-3">
+            document.getElementById("ordersContainer").innerHTML = `
+                <div class="text-center text-danger py-5">
+                    Failed to load orders
+                </div>
+            `;
+        });
+}
 
-                            <button class="btn btn-outline-primary w-50"
-                                    onclick="viewItems(${order.id})">
+//revenue Calculations
+function updateRevenue() {
 
-                                View Items
+    const revenueFilter =
+        document.getElementById("revenueFilter");
 
-                            </button>
+    if(!revenueFilter) return;
 
-                            <button class="btn btn-success w-50"
-                                    onclick="markDelivered(${order.id})">
+    const filter = revenueFilter.value;
 
-                                Mark Delivered
+    const today = new Date();
 
-                            </button>
+    let filteredOrders = allOrders;
 
-                        </div>
+    if(filter === "today") {
 
-                    </div>
+        filteredOrders =
+        allOrders.filter(o => {
+
+            const orderDate =
+            new Date(o.orderDate);
+
+            return (
+                orderDate.toDateString() ===
+                today.toDateString()
+            );
+        });
+
+    } else if(filter === "week") {
+
+        const weekAgo = new Date();
+
+        weekAgo.setDate(today.getDate() - 7);
+
+        filteredOrders =
+        allOrders.filter(o =>
+            new Date(o.orderDate) >= weekAgo
+        );
+
+    } else if(filter === "month") {
+
+        filteredOrders =
+        allOrders.filter(o => {
+
+            const d =
+            new Date(o.orderDate);
+
+            return (
+                d.getMonth() === today.getMonth()
+                &&
+                d.getFullYear() === today.getFullYear()
+            );
+        });
+    }
+
+    const revenue =
+        filteredOrders.reduce(
+            (sum,o) =>
+                sum + (o.totalAmount || 0),
+            0
+        );
+
+    document.getElementById(
+        "totalRevenue"
+    ).innerText =
+    "₹" + revenue.toFixed(0);
+
+    document.getElementById(
+        "revenueLabel"
+    ).innerText =
+    revenueFilter.options[
+        revenueFilter.selectedIndex
+    ].text + " Revenue";
+}
+/*render order*/
+
+function renderOrders(orders) {
+
+    const container =
+        document.getElementById("ordersContainer");
+
+    container.innerHTML = "";
+
+    orders.forEach(order => {
+
+        const statusColor =
+            order.status === "DELIVERED"
+                ? "bg-success"
+                : order.status === "PLACED"
+                ? "bg-warning text-dark"
+                : "bg-primary";
+
+        container.innerHTML += `
+
+        <div class="col-lg-6 col-md-12">
+
+            <div class="order-card p-4">
+
+                <div class="d-flex justify-content-between align-items-center">
+
+                    <h5 class="fw-bold mb-0">
+                        Order #${order.id}
+                    </h5>
+
+                    <span class="badge ${statusColor}">
+                        ${order.status}
+                    </span>
 
                 </div>
-                `;
-            });
-        })
-        .catch(err => console.error(err));
+
+                <hr>
+
+                <p>
+                    <i class="bi bi-person-fill text-success"></i>
+                    <b>${order.customerName || "N/A"}</b>
+                </p>
+
+                <p>
+                    <i class="bi bi-telephone-fill text-success"></i>
+                    ${order.phone || "N/A"}
+                </p>
+
+                <p>
+                    <i class="bi bi-geo-alt-fill text-success"></i>
+                    ${order.address || "N/A"}
+                </p>
+
+                <hr>
+
+                <p class="fw-bold text-success mb-1">
+                    ₹${order.totalAmount}
+                </p>
+
+                <p class="text-muted mb-3">
+                    ${order.orderDate} • ${order.orderTime}
+                </p>
+
+                <div class="d-flex gap-2 action-buttons">
+
+                    <button
+                        class="btn btn-outline-success flex-fill"
+                        onclick="viewItems(${order.id})">
+
+                        <i class="bi bi-eye"></i>
+                        View Details
+
+                    </button>
+
+                    ${
+                        order.status === "DELIVERED"
+
+                        ? `
+                        <button
+                            class="btn btn-success flex-fill"
+                            disabled>
+
+                            <i class="bi bi-check-circle-fill"></i>
+                            Delivered
+
+                        </button>
+                        `
+
+                        : `
+                        <button
+                            class="btn btn-warning flex-fill"
+                            onclick="markDelivered(${order.id})">
+
+                            <i class="bi bi-truck"></i>
+                            Deliver
+
+                        </button>
+                        `
+                    }
+
+                </div>
+
+            </div>
+
+        </div>
+        `;
+    });
+}
+
+function filterOrders(status){
+
+    document
+        .querySelectorAll(".order-filter-bar .btn")
+        .forEach(btn =>
+            btn.classList.remove("filter-active")
+        );
+
+    event.target.classList.add("filter-active");
+
+    if(status === "ALL"){
+        renderOrders(allOrders);
+        return;
+    }
+
+    const filtered =
+        allOrders.filter(
+            order => order.status === status
+        );
+
+    renderOrders(filtered);
 }
 
 
-// VIEW ITEMS
+/* VIEW ITEMS */
+
 function viewItems(orderId) {
-    window.location.href = `/order-details?orderId=${orderId}`;
+    window.location.href =
+        `/order-details?orderId=${orderId}&admin=true`;
 }
 
 
-// MARK DELIVERED
+/* MARK DELIVERED */
+
 function markDelivered(orderId) {
+
+    if (!confirm("Mark this order as delivered?")) {
+        return;
+    }
 
     fetch(`/api/orders/delivered/${orderId}`, {
         method: "PUT"
     })
-    .then(res => {
-        if (!res.ok) throw new Error("Failed");
-        return res.json();
-    })
-    .then(() => {
-        loadOrders(); // refresh UI
-    })
-    .catch(err => {
-        console.log(err);
-        alert("Failed to update status");
-    });
+        .then(res => {
+
+            if (!res.ok) {
+                throw new Error("Failed");
+            }
+
+            return res.json();
+        })
+        .then(() => {
+
+            loadOrders();
+        })
+        .catch(err => {
+
+            console.error(err);
+
+            alert("Failed to update status");
+        });
 }
+
+
+/*HAmaberger return state*/
+document.addEventListener("click", function (event) {
+
+    const navbarCollapse =
+        document.getElementById("navBar");
+
+    const navbarToggler =
+        document.querySelector(".navbar-toggler");
+
+    if (
+        navbarCollapse.classList.contains("show") &&
+        !navbarCollapse.contains(event.target) &&
+        !navbarToggler.contains(event.target)
+    ) {
+
+        bootstrap.Collapse
+            .getInstance(navbarCollapse)
+            .hide();
+    }
+});

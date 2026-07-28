@@ -1,6 +1,7 @@
 package com.Controller;
 
 import org.springframework.stereotype.Controller;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -37,10 +38,17 @@ public class HomeController {
 		return "products";
 	}
 
-    @GetMapping("/admin")
-    public String admin() {
-        return "admin";
-    }
+	@GetMapping("/admin")
+	public String admin(HttpSession session) {
+
+	    String role = (String) session.getAttribute("role");
+
+	    if (role == null || !role.equals("ADMIN")) {
+	        return "redirect:/login";
+	    }
+
+	    return "admin";
+	}
     
     @GetMapping("/order-details")
     public String orderDetailsPage() {
@@ -53,8 +61,20 @@ public class HomeController {
     }
     
     @GetMapping("/admin-orders")
-    public String adminOrdersPage() {
+    public String adminOrdersPage(HttpSession session) {
+
+        String role = (String) session.getAttribute("role");
+
+        if (role == null || !role.equals("ADMIN")) {
+            return "redirect:/login";
+        }
+
         return "admin-orders";
+    }
+    
+    @GetMapping("/forgot-password")
+    public String forgotPassword() {
+        return "forgot-password";
     }
 
 }

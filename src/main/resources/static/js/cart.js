@@ -5,7 +5,7 @@ function loadCart() {
     const userId = localStorage.getItem("userId");
 
     if (!userId || userId === "null") {
-        alert("Please login first");
+        showToast("Please login first","warning");
         window.location.href = "/login";
         return;
     }
@@ -21,7 +21,21 @@ function loadCart() {
             let total = 0;
 
             if (!data || data.length === 0) {
-                cartDiv.innerHTML = "<p>No items in cart</p>";
+				cartDiv.innerHTML = `
+				<div class="empty-cart">
+
+				    <h3>Your Cart is Empty</h3>
+
+				    <p>
+				        Fresh fruits and coconuts are waiting for you.
+				    </p>
+
+				    <a href="/products" class="btn btn-success">
+				        Browse Products
+				    </a>
+
+				</div>
+				`;
                 totalSpan.innerText = 0;
                 return;
             }
@@ -42,7 +56,7 @@ function loadCart() {
                             </button>
                         </div>
 
-                        <p class="text-muted mb-1">₹${item.price} per item</p>
+                        <p class="text-muted mb-1">₹${item.price}</p>
 
                         <div class="d-flex justify-content-between align-items-center mt-2">
 
@@ -119,3 +133,25 @@ function showToast(message, type = "success") {
     const toast = new bootstrap.Toast(toastEl);
     toast.show();
 }
+
+
+/*HAmaberger return state*/
+document.addEventListener("click", function (event) {
+
+    const navbarCollapse =
+        document.getElementById("navBar");
+
+    const navbarToggler =
+        document.querySelector(".navbar-toggler");
+
+    if (
+        navbarCollapse.classList.contains("show") &&
+        !navbarCollapse.contains(event.target) &&
+        !navbarToggler.contains(event.target)
+    ) {
+
+        bootstrap.Collapse
+            .getInstance(navbarCollapse)
+            .hide();
+    }
+});

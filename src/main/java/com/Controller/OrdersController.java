@@ -90,17 +90,29 @@ public class OrdersController {
 
         orderRepo.save(savedOrder);
         
+        System.out.println("TOTAL BEFORE EMAIL: " + total);
+        
         /* Email for Customer confirmation */
         User user = userRepository.findById(userId).orElse(null);
 
         if (user != null) {
 
-            emailService.sendCustomerConfirmationEmail(
-                    user.getUsername(), // username is email
-                    savedOrder.getCustomerName(),
-                    savedOrder.getId(),
-                    total
-            );
+            try {
+
+                emailService.sendCustomerConfirmationEmail(
+                        user.getUsername(),
+                        savedOrder.getCustomerName(),
+                        savedOrder.getId(),
+                        total
+                );
+
+            } catch (Exception e) {
+
+                System.out.println(
+                    "Customer email failed: "
+                    + e.getMessage()
+                );
+            }
         }
         
 		/* Email for Admin */
@@ -151,5 +163,13 @@ public class OrdersController {
         }
 
         return null;
+    }
+    
+	/* order state */
+    @GetMapping("/{orderId}")
+    public Orders getOrderById(@PathVariable Long orderId) {
+
+        return orderRepo.findById(orderId)
+                .orElse(null);
     }
 }

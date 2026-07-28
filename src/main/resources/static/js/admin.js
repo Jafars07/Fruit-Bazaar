@@ -17,6 +17,23 @@ imageInput.addEventListener("change", function () {
 
 // LOAD PRODUCTS
 function loadProducts() {
+	
+	document.getElementById("productTable").innerHTML=
+	`
+	<tr>
+	<td colspan="7">
+
+	<div class="text-center py-4">
+
+	<div class="spinner-border text-success"></div>
+
+	<p class="mt-2">Loading Products...</p>
+
+	</div>
+
+	</td>
+	</tr>
+	`;
 
     fetch("/api/products/all")
         .then(res => res.json())
@@ -48,7 +65,7 @@ function renderProducts(products) {
             <td>
 			<img src="${p.imageUrl}"
 			     class="table-img"
-			     onerror="this.onerror=null;this.src='/images/no-image.png'">
+			     onerror="this.onerror=null;this.src='/images/no-image.jpg'">
             </td>
 
             <td>${p.name}</td>
@@ -98,20 +115,71 @@ function renderProducts(products) {
         </tr>
         `;
     });
+	setTimeout(() => {
+
+	    document.querySelectorAll("#productTable tr")
+	    .forEach((row,index)=>{
+
+	        row.style.opacity="0";
+	        row.style.transform="translateY(20px)";
+
+	        setTimeout(()=>{
+
+	            row.style.transition=".4s";
+
+	            row.style.opacity="1";
+	            row.style.transform="translateY(0)";
+
+	        },index*50);
+
+	    });
+
+	},100);
 }
 
 
 // DASHBOARD COUNTS
-function updateDashboard(products) {
+function animateCounter(id,value){
+
+    let start=0;
+
+    const element=document.getElementById(id);
+
+    const interval=setInterval(()=>{
+
+        start++;
+
+        element.innerText=start;
+
+        if(start>=value){
+            clearInterval(interval);
+        }
+
+    },50);
+}
+
+function updateDashboard(products){
+
+    const total = products.length;
+
+    const available =
+        products.filter(
+            p => p.available === true
+        ).length;
+
+    const unavailable =
+        products.filter(
+            p => p.available === false
+        ).length;
 
     document.getElementById("totalProducts").innerText =
-        products.length;
+        total;
 
     document.getElementById("availableProducts").innerText =
-        products.filter(p => p.available).length;
+        available;
 
     document.getElementById("unavailableProducts").innerText =
-        products.filter(p => !p.available).length;
+        unavailable;
 }
 
 
@@ -216,7 +284,7 @@ document.getElementById("productForm")
         document.getElementById("productForm").reset();
 
         previewImage.src =
-		    "/images/no-image.png";
+		    "/images/no-image.jpg";
 
         window.editId = null;
 
@@ -243,7 +311,9 @@ document.getElementById("productForm")
 // DELETE PRODUCT
 function deleteProduct(id) {
 
-    if (!confirm("Delete this product?")) return;
+	if (!confirm("⚠️ Are you sure you want to delete this product?")) {
+	    return;
+	}
 
     fetch(`/api/products/${id}`, {
         method: "DELETE"
@@ -274,7 +344,7 @@ function editProduct(id) {
                 p.unit;
 
             document.getElementById("available").checked =
-                p.available;
+				Boolean(p.available);
 				
 			document.getElementById("featured").checked =
 			 p.featured;
@@ -290,6 +360,50 @@ function editProduct(id) {
         });
 }
 
+
+
+
+window.addEventListener("load", () => {
+
+    document.querySelectorAll(".dashboard-card")
+    .forEach((card,index)=>{
+
+        card.style.opacity="0";
+        card.style.transform="translateY(40px)";
+
+        setTimeout(()=>{
+
+            card.style.transition=".6s";
+
+            card.style.opacity="1";
+            card.style.transform="translateY(0)";
+
+        },index*150);
+
+    });
+
+});
+
+/*HAmaberger return state*/
+document.addEventListener("click", function (event) {
+
+    const navbarCollapse =
+        document.getElementById("navBar");
+
+    const navbarToggler =
+        document.querySelector(".navbar-toggler");
+
+    if (
+        navbarCollapse.classList.contains("show") &&
+        !navbarCollapse.contains(event.target) &&
+        !navbarToggler.contains(event.target)
+    ) {
+
+        bootstrap.Collapse
+            .getInstance(navbarCollapse)
+            .hide();
+    }
+});
 
 // INITIAL LOAD
 loadProducts();
