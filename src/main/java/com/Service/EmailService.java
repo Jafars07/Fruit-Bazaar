@@ -109,12 +109,14 @@ public class EmailService {
                     "Your OTP is: " + otp +
                     "\n\nValid for 5 minutes."
             );
-
+            System.out.println("MAIL USER = " + System.getenv("MAIL_USERNAME"));
             mailSender.send(message);
 
             System.out.println("OTP EMAIL SENT SUCCESSFULLY");
 
             return true;
+            
+            
 
         } catch (Exception e) {
 
