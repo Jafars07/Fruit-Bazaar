@@ -95,17 +95,30 @@ public class EmailService {
     /* Send Otp */
     public void sendOtpEmail(String email, String otp) {
 
-        SimpleMailMessage message = new SimpleMailMessage();
+        try {
 
-        message.setTo(email);
+            System.out.println("===== SENDING OTP EMAIL =====");
+            System.out.println("TO : " + email);
+            System.out.println("OTP : " + otp);
 
-        message.setSubject("Fruit Bazaar OTP Verification");
+            SimpleMailMessage message = new SimpleMailMessage();
 
-        message.setText(
-                "Your OTP is: " + otp +
-                "\n\nValid for 5 minutes."
-        );
+            message.setTo(email);
+            message.setSubject("Fruit Bazaar OTP Verification");
 
-        mailSender.send(message);
+            message.setText(
+                    "Your OTP is: " + otp +
+                    "\n\nValid for 5 minutes."
+            );
+
+            mailSender.send(message);
+
+            System.out.println("OTP EMAIL SENT SUCCESSFULLY");
+
+        } catch (Exception e) {
+
+            System.out.println("OTP EMAIL FAILED");
+            e.printStackTrace();
+        }
     }
 }
