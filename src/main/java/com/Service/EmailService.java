@@ -93,7 +93,7 @@ public class EmailService {
     }
     
     /* Send Otp */
-    public void sendOtpEmail(String email, String otp) {
+    public boolean sendOtpEmail(String email, String otp) {
 
         try {
 
@@ -105,7 +105,6 @@ public class EmailService {
 
             message.setTo(email);
             message.setSubject("Fruit Bazaar OTP Verification");
-
             message.setText(
                     "Your OTP is: " + otp +
                     "\n\nValid for 5 minutes."
@@ -115,10 +114,14 @@ public class EmailService {
 
             System.out.println("OTP EMAIL SENT SUCCESSFULLY");
 
+            return true;
+
         } catch (Exception e) {
 
             System.out.println("OTP EMAIL FAILED");
             e.printStackTrace();
+
+            return false;
         }
     }
 }

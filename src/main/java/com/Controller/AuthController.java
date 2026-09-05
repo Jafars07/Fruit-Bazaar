@@ -118,7 +118,13 @@ public class AuthController {
 
         otpRepo.save(otpData);
 
-        emailService.sendOtpEmail(email, otp);
+        boolean sent = emailService.sendOtpEmail(email, otp);
+
+        if (!sent) {
+            return ResponseEntity
+                    .internalServerError()
+                    .body("Failed to send OTP");
+        }
 
         return ResponseEntity.ok("OTP Sent Successfully");
     }
@@ -229,7 +235,13 @@ public class AuthController {
 
         otpRepo.save(otpData);
 
-        emailService.sendOtpEmail(email, otp);
+        boolean sent = emailService.sendOtpEmail(email, otp);
+
+        if (!sent) {
+            return ResponseEntity
+                    .internalServerError()
+                    .body("Failed to send OTP");
+        }
 
         return ResponseEntity.ok("OTP Sent");
     }
