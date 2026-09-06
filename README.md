@@ -234,19 +234,22 @@ http://localhost:8080
 
 ### 🍎 Product Listing
 
-Add Screenshot Here
+<img width="1747" height="890" alt="image" src="https://github.com/user-attachments/assets/434c7361-63d5-492c-865c-2e4b05e32e24" />
+
 
 ### 🛒 Shopping Cart
 
-Add Screenshot Here
+<img width="1730" height="895" alt="image" src="https://github.com/user-attachments/assets/74ff4a42-12b5-4754-a87f-2dfda0c95884" />
 
-### 📦 Order Management
-
-Add Screenshot Here
 
 ### ⚙️ Admin Dashboard
 
-Add Screenshot Here
+<img width="1725" height="888" alt="image" src="https://github.com/user-attachments/assets/74a6794c-bdca-4885-9bd1-26927cf5e046" />
+
+### 📦 Order Management
+
+<img width="1726" height="781" alt="image" src="https://github.com/user-attachments/assets/b66204e2-0f7c-4e19-b820-a349c6aa77fd" />
+
 
 ---
 
