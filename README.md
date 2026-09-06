@@ -116,7 +116,6 @@ Application will be available at:
 http://localhost:8080
 📸 Screenshots
 🏠 Home Page
-<img width="902" height="827" alt="image" src="https://github.com/user-attachments/assets/44c8430c-d17d-4f7e-ba55-484475968f80" />
 
 (Add Screenshot)
 
