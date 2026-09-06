@@ -5,7 +5,6 @@
   <img src="https://img.shields.io/badge/Spring_Boot-3.x-green?style=for-the-badge&logo=springboot" />
   <img src="https://img.shields.io/badge/PostgreSQL-Database-blue?style=for-the-badge&logo=postgresql" />
   <img src="https://img.shields.io/badge/Render-Deployed-purple?style=for-the-badge&logo=render" />
-  <img src="https://img.shields.io/github/stars/Jafars07/Fruit-Bazaar?style=for-the-badge" />
 </p>
 
 <p align="center">
@@ -77,7 +76,7 @@ Spring Boot REST APIs
 Hibernate / JPA
   │
   ▼
-PostgreSQL Database
+SQL Database
 ```
 
 ---
