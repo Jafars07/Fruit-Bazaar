@@ -1,26 +1,27 @@
-🍎 Fruit-Bazaar
+🍎 Fruit Bazaar
 
-Fruit-Bazaar is a full-stack e-commerce web application that enables users to browse, search, and purchase fresh fruits online. The platform provides a seamless shopping experience with secure authentication, product management, shopping cart functionality, and order processing. An admin dashboard allows efficient inventory and product management.
+A full-stack e-commerce web application designed to simplify the online purchase of fresh fruits. Fruit Bazaar provides a seamless shopping experience with secure user authentication, product browsing, cart management, and order processing. The platform also includes a dedicated admin dashboard for managing products, inventory, and customer orders efficiently.
 
 🚀 Features
-User Features
-User Registration and Login
-Secure Authentication
+👤 User Features
+Secure User Registration and Login
+OTP-Based Authentication
 Browse Fruits by Category
 Search and Filter Products
-Add Products to Cart
-Place Orders
+Add Products to Shopping Cart
+Place and Track Orders
 Responsive User Interface
-Dark/Light Theme Toggle
-Admin Features
-Admin Login
+Dark/Light Theme Support
+Secure Session Management
+🛠️ Admin Features
+Admin Authentication
 Add New Products
-Update Product Details
+Update Product Information
 Delete Products
-Manage Inventory
-View Customer Orders
-
-🛠️ Technologies Used
+Manage Product Inventory
+View and Manage Customer Orders
+Monitor Platform Activity
+🏗️ Tech Stack
 Frontend
 HTML5
 CSS3
@@ -31,91 +32,133 @@ Java
 Spring Boot
 Spring MVC
 Hibernate (JPA)
+RESTful APIs
 Database
-MySQL
-Tools & Platforms
+PostgreSQL (Production)
+MySQL (Development)
+Cloud & Services
+Render (Application Hosting)
+Supabase (Database Hosting)
+Cloudinary (Image Storage)
+Tools & Technologies
 Maven
 Git & GitHub
-Render (Deployment)
-
+IntelliJ IDEA / Eclipse
+Postman
 📂 Project Structure
-Fruit-Bazaar/
+Fruit-Bazaar
 │
-├── src/
-│   ├── main/
-│   │   ├── java/
-│   │   ├── resources/
-│   │   └── webapp/
+├── src
+│   ├── main
+│   │   ├── java
+│   │   │   ├── controller
+│   │   │   ├── service
+│   │   │   ├── repository
+│   │   │   ├── entity
+│   │   │   └── config
+│   │   │
+│   │   ├── resources
+│   │   │   ├── application.properties
+│   │   │   └── static
+│   │   │
+│   │   └── webapp
 │
 ├── pom.xml
 ├── README.md
-└── screenshots/
-
+└── screenshots
+✨ Key Functionalities
+Authentication System
+User Registration with OTP Verification
+Secure Login & Logout
+Password Encryption using BCrypt
+Forgot Password & Password Reset Functionality
+Product Management
+Product Listing
+Product Search & Filtering
+Product Categorization
+Product Image Management
+Shopping Experience
+Add to Cart
+Quantity Management
+Order Placement
+Order Confirmation
+Admin Dashboard
+Product CRUD Operations
+Inventory Management
+Customer Order Monitoring
 ⚙️ Installation & Setup
 Prerequisites
-Java 17 or above
-MySQL Server
+Java 17+
 Maven
+PostgreSQL or MySQL
+Git
 IDE (IntelliJ IDEA / Eclipse / VS Code)
-Clone Repository
-git clone https://github.com/your-username/Fruit-Bazaar.git
+Clone the Repository
+git clone https://github.com/Jafars07/Fruit-Bazaar.git
 cd Fruit-Bazaar
 Configure Database
 
-Create a MySQL database:
+Create a database:
 
 CREATE DATABASE fruit_bazaar;
 
-Update database credentials in:
+Update your database credentials in:
 
-application.properties
 spring.datasource.url=jdbc:mysql://localhost:3306/fruit_bazaar
 spring.datasource.username=your_username
 spring.datasource.password=your_password
-Run Application
+Run the Application
+mvn clean install
 mvn spring-boot:run
 
-Open:
+Application will be available at:
 
 http://localhost:8080
 📸 Screenshots
-Home Page
+🏠 Home Page
+<img width="902" height="827" alt="image" src="https://github.com/user-attachments/assets/44c8430c-d17d-4f7e-ba55-484475968f80" />
 
-(Add Screenshot Here)
+(Add Screenshot)
 
-Product Listing
+🍎 Product Listing
 
-(Add Screenshot Here)
+(Add Screenshot)
 
-Shopping Cart
+🛒 Shopping Cart
 
-(Add Screenshot Here)
+(Add Screenshot)
 
-Admin Dashboard
+📦 Order Management
 
-(Add Screenshot Here)
+(Add Screenshot)
+
+⚙️ Admin Dashboard
+
+(Add Screenshot)
 
 🎯 Learning Outcomes
 
-Through this project, I gained practical experience in:
+This project helped me gain practical experience in:
 
-Full-Stack Web Development
-Spring Boot Application Development
+Full-Stack Web Application Development
+Spring Boot & REST API Development
+Hibernate & JPA ORM
 Database Design and Management
-Hibernate ORM
-User Authentication and Authorization
+Authentication & Authorization
+Session Management
+Cloud Deployment
+Version Control with Git & GitHub
 Responsive Web Design
-Deployment and Version Control
+Real-World E-Commerce Application Development
 🌐 Live Demo
 
-Live URL: https://fruit-bazaar.onrender.com
+🔗 Application URL
+https://fruit-bazaar.onrender.com
 
 👨‍💻 Author
-
 Jafar Sadiq
-
-GitHub: https:https://github.com/Jafars07
-LinkedIn: https://linkedin.com/in/your-profile
+GitHub: https://github.com/Jafars07
+LinkedIn: https://linkedin.com/in/jafar-sadiq
 ⭐ Support
 
-If you found this project useful, please consider giving it a ⭐ on GitHub.
+If you found this project helpful, consider giving it a Star ⭐ on GitHub. Your support helps improve the project and encourages future development.
