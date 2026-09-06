@@ -160,4 +160,4 @@ GitHub: https://github.com/Jafars07
 LinkedIn: https://linkedin.com/in/jafar-sadiq
 ⭐ Support
 
-If you found this project helpful, consider giving it a Star ⭐ on GitHub. Your support helps improve the project and encourages future development.
+If you found this project helpful, consider giving it a Star ⭐ on GitHub. Your support helps improve the project and encourages future development.<img width="1827" height="961" alt="image" src="https://github.com/user-attachments/assets/e7dfd5c0-17e9-4796-9be7-198dd1694157" />
